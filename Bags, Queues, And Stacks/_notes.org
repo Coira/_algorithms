@@ -1,0 +1,105 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Bags, Queues, Stacks
+
+* Stacks
+** Code
+FixedCapacityStack
+ResizingArrayStack
+Stack  (linked list version)
+
+** Notes on implementation
+*** Array Resizing
+- risk wasting space when collection is nearly empty
+- risk overflow if collection grows bigger than array
+
+- ~push()~ must test for full stack
+  - ~isFull()~
+- stack should do this automatically, client doesn't need to deal with it
+
+- ~pop()~ -- do we need to halve the array?
+- if < 1/4 full, then halving will leave array about half full
+
+*** Linked List Implementation
+- ~first~ points to the top of the stack
+- ~push()~ an item to the beginning of the list (relink ~first~)
+- ~pop()~ an item from the beginning of the list
+- update ~size~ when we push and pop
+- stack is empty when ~first~ is null or ~size~ is 0
+
+Achieves our optimum design goals:
+- It can be used for any type of data
+- The space required is always proportional to the size of the collection
+- The time per operation is always independent of the size of the collection
+
+* Queues
+** Code
+Queue (linked list implementation)
+** Notes on implementation
+*** Linked List Implementation
+- ~first~ points to the start of the list
+- ~last~ points to the end of the list
+- ~enqueue()~ adds an item to the end of the list
+- ~dequeue()~ removes an item from the start of the list
+- queue is empty when ~first~ and ~last~ refers to the new node
+
+
+* Linked Lists
+** Code
+Stack
+Queue
+ 
+** Details
+- a *recursive* data structure 
+- either 
+  - empty or 
+  - a reference to a node having a generic item and a reference to a linked list.
+
+- a *node* has an ~Item~ and a ~Node~
+- ~Node~ is either empty or a reference to another ~Node~
+
+*** Insert at the beginning
+  - create new reference and point it to where first is pointing
+  - reassign ~first~ to a new Node
+  - point ~first.next~ to the old first
+easier to understand like this...
+
+#+BEGIN_SRC java
+  Node oldfirst = first;
+  first = new Node();
+  first.item = "some value";
+  first.next = oldfirst;
+#+END_SRC 
+
+*** Remove from the beginning
+- ~first = first.next~
+- if you need the value from ~first~, assign it to something before doing this
+
+*** Insert at the end
+- keep a tail pointer
+  - not as simple as it seems
+  - every method that modifies the list needs to check whether tail needs to be updated
+  - e.g. "remove from beginning", what if there's only one node in the list?
+  - what if the list is empty?
+- can be notoriously difficult to debug
+- the code below doesn't work if the list is empty
+
+#+BEGIN_SRC java
+  Node oldlast = last;
+  last = new Node();
+  last.item = "not";
+  oldlast.next = last;
+#+END_SRC
+
+*** Insert/remove at other positions
+- singly-linked list makes these operations linear time
+- doubly-linked lists are a better solution
+  
+**** TODO Link to exercises 
+
+*** Traversal
+- ~for (Node x = first; x != null; x = x.next)~
+
+
+* Notes On Code
