@@ -55,7 +55,7 @@ public class Stack<Item> implements Iterable<Item>
     }
             
         
-    public static void main(String[] ards)
+    public static void main(String[] args)
     {
         Stack<String> s = new Stack<String>();
 

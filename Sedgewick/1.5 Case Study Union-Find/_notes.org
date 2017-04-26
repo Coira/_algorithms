@@ -1,0 +1,45 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Case Study: Union-Find
+
+* Quick-Find
+** Code
+- UF.java
+
+** Notes on implementation
+- forest-of-trees representation
+- connected if id[p] == id[q]
+- to maintain invariant, all id[] entries corresponding to both sets of sites are changed to the same value
+- union() needs to go through array for each input pair
+- O(n^2)
+
+* Quick-Union
+** Code
+- UF.java
+
+** Note on implementation
+- speed up union() in quick-find
+- find(p, q) starts at id[x] and follows the links until it reaches a node
+  - connected if id[p] ends at the same node as id[q]
+- union() links one root to another
+- best case constant-time, worst-case quadratic time
+
+* Weighted Quick-Union
+** Code
+- WeightedQuickUnionUF.java
+
+** Notes on implementation
+- keep track of size of tree
+- join smaller tree to larger one
+- logarithmic performance
+
+* Weighted Quick-Union with Path Compression
+** Notes on implementation
+- every node links directly to its root
+- compression done in find()
+- tree is flattened
+- optimal but not quite constant-time per operation
+- theoretically, the best we can do; practically, not likely to see much improvement over weighted quick-union
+ 
+* Notes On Code

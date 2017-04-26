@@ -45,11 +45,19 @@ Queue (linked list implementation)
 - queue is empty when ~first~ and ~last~ refers to the new node
 
 
+* Bag
+** Code
+Bag (linked list implementation)
+
+** Notes on implementation
+We can use the stack code and rename some of the methods to conform with the Bag API.
+
 * Linked Lists
 ** Code
 Stack
 Queue
- 
+Bag 
+
 ** Details
 - a *recursive* data structure 
 - either 
