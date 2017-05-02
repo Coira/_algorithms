@@ -1,0 +1,31 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Sorting
+
+* Elementary Sort
+** Selection Sort
+*** Method
+- Finds the smallest item and places it in the first position in the array
+- Then finds the next smallest item and places it in the second position
+- Repeat until sorted
+*** Analysis
+- ~(N^2)/2 compares and N exchanges
+- Running time is insensitive to input
+- Data movement is minimal
+*** Code
+Selection.java
+
+** Insertion Sort
+*** Method
+- For each /i/ to /N-1/, exchange /a[i]/ with the entries that are larger in /a[0]/ through /a[i-1]/
+- Entries to the left of /i/ are sorted, entries to the right are unsorted
+*** Analysis
+- Best-case: N-1 compares, 0 exchanges
+- Average-case: ~(N^2)/4 compares, ~(N^2)/4 exchanges
+  - randomly ordered array with distinct keys
+- Worst-case: ~(N^2)/2 compares, ~(N^2)/2 exchanges
+- Best used when array is partially sorted
+
+
+

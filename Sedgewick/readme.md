@@ -6,4 +6,4 @@ and to point your classpath to the location of the jar file, e.g.
 
 > java -cp ../libs/stdlib.jar;. file
 
-That is, add libs/ and current directory to classpath and look in those locations for stdlib.jar and .java and .class files.
+That is, if stdlib.jar is in a folder libs, we add libs/ and current directory to classpath and look in those locations for stdlib.jar and .java and .class files.
