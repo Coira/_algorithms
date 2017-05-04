@@ -27,5 +27,21 @@ Selection.java
 - Worst-case: ~(N^2)/2 compares, ~(N^2)/2 exchanges
 - Best used when array is partially sorted
 
+** Shellsort
+*** Method
+- h-sort the array
+  - taking every /h/-th entry yields a sorted subsequence
+- start with large values of /h/ and decrease to 1
+- sorting with large values of /h/ makes it easier to sort with smaller values of /h/
+- start at floor(N/3), decrease by (1/2)((3^k)-1)
+- modified insertion sort
+*** Analysis
+- tradeoff between size and partial order
+- performance on randomly ordered arrays has not been precisely characterised
+- safe choice if you must implement a sort yourself
 
+
+
+
+  
 

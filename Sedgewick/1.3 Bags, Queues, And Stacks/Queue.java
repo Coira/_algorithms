@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class Queue<Item> implements Iterable<Item>
 {
     private Node first;  // link to least recently added node
@@ -40,7 +42,7 @@ public class Queue<Item> implements Iterable<Item>
         return item;
     }
 
-        public Iterator<Item> iterator()
+    public Iterator<Item> iterator()
     {
         return new ListIterator();
     }
