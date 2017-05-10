@@ -14,7 +14,11 @@
 - Running time is insensitive to input
 - Data movement is minimal
 *** Code
-Selection.java
+- Selection.java
+
+Under the *_exercises* repo, in the folder Algorithms - Sedgewick/2.1 Elementary Sorts
+- SelectionAnim.java (animates sorting)
+- SelectionTrace.java (creates a visual trace)
 
 ** Insertion Sort
 *** Method
@@ -26,7 +30,13 @@ Selection.java
   - randomly ordered array with distinct keys
 - Worst-case: ~(N^2)/2 compares, ~(N^2)/2 exchanges
 - Best used when array is partially sorted
+*** Code
+Insertion.java
 
+Under the *_exercises* repo, in the folder Algorithms - Sedgewick/2.1 Elementary Sorts
+- InsertionAnim.java (animates sorting)
+- InsertionTrace.java (creates a visual trace)
+ 
 ** Shellsort
 *** Method
 - h-sort the array
@@ -39,6 +49,13 @@ Selection.java
 - tradeoff between size and partial order
 - performance on randomly ordered arrays has not been precisely characterised
 - safe choice if you must implement a sort yourself
+*** Code
+Shell.java
+
+Under the *_exercises* repo, in the folder Algorithms - Sedgewick/2.1 Elementary Sorts
+- ShellAnim.java (animates sorting)
+- ShellTrace.java (creates a visual trace)
+ 
 
 
 
