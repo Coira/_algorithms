@@ -1,55 +1,55 @@
 #+STARTUP: content
 #+STARTUP: indent
 
-#+TITLE: Sorting
+#+TITLE: Elementary Sorts
 
-* Elementary Sort
-** Selection Sort
-*** Method
+
+* Selection Sort
+** Method
 - Finds the smallest item and places it in the first position in the array
 - Then finds the next smallest item and places it in the second position
 - Repeat until sorted
-*** Analysis
+** Analysis
 - ~(N^2)/2 compares and N exchanges
 - Running time is insensitive to input
 - Data movement is minimal
-*** Code
+** Code
 - Selection.java
 
 Under the *_exercises* repo, in the folder Algorithms - Sedgewick/2.1 Elementary Sorts
 - SelectionAnim.java (animates sorting)
 - SelectionTrace.java (creates a visual trace)
 
-** Insertion Sort
-*** Method
+* Insertion Sort
+** Method
 - For each /i/ to /N-1/, exchange /a[i]/ with the entries that are larger in /a[0]/ through /a[i-1]/
 - Entries to the left of /i/ are sorted, entries to the right are unsorted
-*** Analysis
+** Analysis
 - Best-case: N-1 compares, 0 exchanges
 - Average-case: ~(N^2)/4 compares, ~(N^2)/4 exchanges
   - randomly ordered array with distinct keys
 - Worst-case: ~(N^2)/2 compares, ~(N^2)/2 exchanges
 - Best used when array is partially sorted
-*** Code
+** Code
 Insertion.java
 
 Under the *_exercises* repo, in the folder Algorithms - Sedgewick/2.1 Elementary Sorts
 - InsertionAnim.java (animates sorting)
 - InsertionTrace.java (creates a visual trace)
- 
-** Shellsort
-*** Method
+
+* Shellsort
+** Method
 - h-sort the array
   - taking every /h/-th entry yields a sorted subsequence
 - start with large values of /h/ and decrease to 1
 - sorting with large values of /h/ makes it easier to sort with smaller values of /h/
 - start at floor(N/3), decrease by (1/2)((3^k)-1)
 - modified insertion sort
-*** Analysis
+** Analysis
 - tradeoff between size and partial order
 - performance on randomly ordered arrays has not been precisely characterised
 - safe choice if you must implement a sort yourself
-*** Code
+** Code
 Shell.java
 
 Under the *_exercises* repo, in the folder Algorithms - Sedgewick/2.1 Elementary Sorts
