@@ -1,0 +1,60 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Mergesort
+
+* Abstact in-place merge
+** Method
+- use an auxiliary array and merge back to the original
+- can't avoid having to use extra space
+- local ~aux~ would mean we create an array for every merge, the cost of which would dominate the running time of the rest of the array
+** Code
+- see merge method in any of the Merge code
+- TODO exercise 2.2.9
+
+* Top-down Merge
+** Method
+- divide-and-conquer paradigm
+- sorts subarrays and merges
+** Analysis
+- uses between (1/2)NlgN and NlgN compares
+- uses at most 6NlgN array accesses
+** Improvements
+- use insertion sort for small subarrays
+  - can improve running time by about 10-15%
+- test whether the array is in order
+  - running time for any sorted subarray is linear
+- eliminate the copy to ~aux~
+  - swap between using ~aux~ and original array as copy
+** Code
+- Merge.java
+- TODO exercise 2.2.8
+- TODO 2.2.11
+- TODO exercise 2.2.5 Merge vs MergeBU
+
+* Bottom-up Merge
+** Method
+- solve a large problem by dividing it into pieces
+- merge tiny subarrays in one pass, then merge those subarrays, etc
+- 1-by-1 merges, then 2-by-2 merges, 4-by-4 merges and so forth
+** Code
+- MergeBU.java
+- TODO exercise 2.2.5 Merge vs MergeBU
+** Analysis
+- uses between (1/2)NlgN and NlgN compares
+- uses at most 6NlgN array accesses
+- if N is a power of two, performs the same compares and accesses as top-down merge, just in a different order
+- if N isn't a power of two, this will be different
+
+* General Mergesort Notes
+- lg(N!) ~ NlgN compares is a lower bound
+- Not optimal with respect to space usage
+- May not be the best choice if operations other than compares (i.e array accesses) are more expensive
+- if all items have the same value, running time is linear
+- if there is more than one duplicate value, may not notice a difference
+
+* General Advice
+- Use the simplest implementation you are comfortable with then refine if it becomes a bottleneck. 
+- Spending time to reduce cost by a constant factor might not be worthwile.
+- Run tests.
+
