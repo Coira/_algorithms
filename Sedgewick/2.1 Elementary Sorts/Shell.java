@@ -9,7 +9,7 @@ public class Shell {
         while (h >= 1) {
             //h-sort the array
             for (int i = h; i < N; i++) {
-                // Insert a[i] among a[i-h], a[i-2*n], a[i-3*h],...
+                // Insert a[i] among a[i-h], a[i-2*h], a[i-3*h],...
                 for (int j = i; j >= h && less(a[j], a[j-h]); j -= h) {
                     exch(a, j, j-h);
                 }

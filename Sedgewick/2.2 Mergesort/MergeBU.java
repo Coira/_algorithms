@@ -1,7 +1,7 @@
 public class MergeBU {
     private static Comparable[] aux;
 
-    public static void sort(Compaarable[] a) {
+    public static void sort(Comparable[] a) {
         // Do lgN passes of pairwise merges
         int N = a.length;
         aux = new Comparable[N];
@@ -26,6 +26,10 @@ public class MergeBU {
             else if (less(aux[j], aux[i])) a[k] = aux[j++];
             else                           a[k] = aux[i++];
         }
+    }
+
+    private static boolean less(Comparable v, Comparable w) {
+        return v.compareTo(w) < 0;
     }
 }
                     

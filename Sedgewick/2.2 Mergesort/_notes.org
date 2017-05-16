@@ -3,6 +3,10 @@
 
 #+TITLE: Mergesort
 
+NOTE: All code marked with (*) is located in the _exercises repository
+https://github.com/Coira/_exercises
+
+
 * Abstact in-place merge
 ** Method
 - use an auxiliary array and merge back to the original
@@ -10,7 +14,6 @@
 - local ~aux~ would mean we create an array for every merge, the cost of which would dominate the running time of the rest of the array
 ** Code
 - see merge method in any of the Merge code
-- TODO exercise 2.2.9
 
 * Top-down Merge
 ** Method
@@ -28,7 +31,12 @@
   - swap between using ~aux~ and original array as copy
 ** Code
 - Merge.java
-- TODO exercise 2.2.8
+- Merge_FewerMerges.java (*)
+  - Done as part of exercise 2.2.8
+  - Removes the compare when a[mid] <= a[mid+1] for linear running time when array is sorted
+- Merge_BetterAux.java (*)
+  - Exercise 2.2.9
+  - moves aux to be local to sort(), as a static aux cannot be used concurrently
 - TODO 2.2.11
 - TODO exercise 2.2.5 Merge vs MergeBU
 
