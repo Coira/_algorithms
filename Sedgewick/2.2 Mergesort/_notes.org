@@ -37,7 +37,9 @@ https://github.com/Coira/_exercises
 - Merge_BetterAux.java (*)
   - Exercise 2.2.9
   - moves aux to be local to sort(), as a static aux cannot be used concurrently
-- TODO 2.2.11
+- ImprovedMerge.java (*)
+  - Exercise 2.2.11
+  - incorporates the 3 improvements mentioned
 - TODO exercise 2.2.5 Merge vs MergeBU
 
 * Bottom-up Merge
