@@ -1,0 +1,77 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Quicksort
+
+NOTE: All code marked with (*) is located in the _exercises repository
+https://github.com/Coira/_exercises
+
+* Quicksort
+- divide-and-conquer
+- partitions an array then merges
+- once subarrays are sorted, the whole array is ordered
+- can be fragile, care needed to not end up with quadratic time
+- proof of correctness via induction
+
+** Method
+
+A partitioning element ~a[j]~ is chosen, and the rest of the entries are arranged around it.
+
+Partitioning keeps the following conditions:
+- the entry ~a[j]~ is in its final place in the array, for some ~j~
+- no entry in ~a[lo]~ through ~a[j-1]~ is greater than ~a[j]~
+- no entry in ~a[j+1]~ through ~a[hi]~ is less than ~a[j]~
+
+** Things to be wary of
+
+*** Partitioning in place
+Not worth the cost of copying from the extra array back to original
+*** Staying in bounds
+We can remove ~(j == lo)~ and ~(i == hi)~ as these are redundant.
+*** Preserving randomness
+Shuffling, or choosing a random item for partitioning will ensure randomness.
+*** Terminating the loop
+A common error is to fail to take into account that the array might contain other items with the same key value as the partitioning item.
+*** Handling items with keys equal to the partitioning item's key
+Scan for items with keys less than/greater than /or equal/ to partition. Avoids quadratic time.
+*** Terminating the recursion
+Common mistake is not ensuring that one item is alway put into position.
+
+** Analysis
+- C_N = 2C_(N/2) + N ~ NlgN
+- True when the partition falls in the middle. This happens /on average/.
+- With duplicate keys, average number of compares is no greater than C_N
+- Extremely inefficient if partitions are unbalanced
+- Although mergesort is also O(NlgN), quicksort needs far less data movement
+
+** Improvements
+*** Cutoff to insertion sort
+Somewhere between 5-15 elements is good
+*** Median-of-three partitioning
+Choose 3 items, calculate the median as the partition.
+Can also use the sample items as sentinels.
+*** Entropy-optimal sorting
+As original quicksort is efficient when there are large amounts of duplicate keys, can use 3-way partitioning to deal with the duplicates.
+
+* Quicksort with 3-way Partitioning
+
+Deals with large numbers of duplicate keys, avoids running into quadratic time.
+
+** Method
+- single left-to-right pass
+- 3 pointers:
+  - ~lt~ such that ~a[lo..lt-1] < v~
+  - ~gt~ such that ~a[gt+1, hi] > v~
+  - ~i~ such that ~a[lt..i-1] == v~
+- 3 cases:
+  - ~a[i] < v~  : swap ~a[lt]~ and ~a[i]~, inc ~lt~ and ~i~
+  - ~a[i] > v~  : swap ~a[i]~ and ~a[gt]~, dec ~gt~
+  - ~a[i] == v~ : inc ~i~
+
+* Code
+- Quick.java
+- Quick3Way.java -- 3-way partitioning
+- TODO Ex 2.3.17 -- implementing above "Staying in bounds"
+- TODO Ex 2.3.13 -- avoiding quadratic time
+- TODO Ex 2.3.25 -- using insertion sort for small subarrays
+- TODO Ex 2.3.18, 2.3.19 -- median-of-tree partitioning
