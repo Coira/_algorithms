@@ -5,7 +5,7 @@ public class Quick3Way {
     }
     
     private static void sort(Comparable[] a, int lo, int hi) {
-        if (h <= lo) return;
+        if (hi <= lo) return;
         int lt = lo, i = lo+1, gt = hi;
         Comparable v = a[lo];
         while (i <= gt) {

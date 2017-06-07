@@ -71,7 +71,8 @@ Deals with large numbers of duplicate keys, avoids running into quadratic time.
 * Code
 - Quick.java
 - Quick3Way.java -- 3-way partitioning
-- TODO Ex 2.3.17 -- implementing above "Staying in bounds"
+- SentinelQuick.java (*) -- implementing above "Staying in bounds"
 - TODO Ex 2.3.13 -- avoiding quadratic time
 - TODO Ex 2.3.25 -- using insertion sort for small subarrays
-- TODO Ex 2.3.18, 2.3.19 -- median-of-tree partitioning
+- M3Quick.java (*) -- median-of-tree partitioning
+- StackQuick.java (*) -- non-recursive qs using a stack
