@@ -1,0 +1,96 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Priority Queues
+
+NOTE: All code marked with (*) is located in the _exercises repository
+https://github.com/Coira/_exercises
+
+* Priority Queues
+- characterised by the /remove the maximum/ and insert operations
+
+** Elementary Implementations
+
+- based on pushdown stacks
+- unordered is the /lazy/ approach, defer work until needed
+- ordered is the /eager/ approach, do the work upfront
+
+*** Array Representation (unordered)
+- insert is the same as push
+- remove max is similar to inner loop of selection sort
+- will need resizing method
+- insert O(1), remove(N)
+*** Array Representation (ordered)
+- insert moves larger entries one position to the right
+- therefore array always in order and largest entry at the end
+- pop() removes the max
+- insert O(N), remove O(1)
+*** Linked List Representation
+- either modify pop() to find and return max
+- or modify push() to keep keys in reverse order and pop() to unlink and return
+
+** Heap Representation
+
+- /heap-ordered/, the key in each node is larger than or equal to its children
+- the largest key is found at the root
+- parent at floor(k/2), children at 2k and 2k+1
+- moving around is simple maths
+- logarithmic-time insert and remove
+- the height of a complete binary tree is floor(lgN)
+
+*** Heapify (swim)
+- heap order violated because node's key becomes larger than node's parent's key
+- swap node with its parent
+- repeat until node no longer violates heap order
+*** Heapify (sink)
+- heap order violated because node is smaller than one or both of its children
+- swap node with the larger of its children
+- repeat until violation solved
+
+*** Analysis
+- 1 + lgN compares for insert
+- 2lgN compares for remove max
+- proof: both operations require travelling path from root to bottom of the heap
+- time bounds /amortized/ when arrays are resized
+
+*** Multiway Heaps
+- ternay tree
+  - /k/ >= /3k-1/, /3k/, /3k+1/
+  - /k/ <= floor((k+1)/3)
+- easy to extend to /d/-ary heaps for any given /d/
+- tradeoff between lower cost from reduced tree height (log_d(N)) and the higher cost of finding the largest of the /d/ children at each node
+
+*** Index Priority Queue
+- each item is associated with a unique interger index
+- fast access to the smallest entry in a /specified subset/ of an array's entries.
+- at most logN for insert, change priority, delete and remove min (or max)
+- useful, e.g. when you have several streams that you want to output in sorted order
+
+** Heapsort
+- add all items into a PQ
+- repeatedly remove the minimum
+
+*** Heap Construction
+- proceed right to left through the array
+- use ~sink()~ to make subheaps as we go
+- start the scan halfway back through the array, as we can skip subheaps of size 1
+- at position 1, ~sink()~ finished building the heap
+
+*** Analysis
+- constant extra space in the worst case
+- poor cache performance
+- construction 
+  - < 2N compares 
+  - < N exchanges
+- sortdown
+  - < 2NlgN + 2N compares and half as many exchanges
+  - 2N is the cost of heap construction
+- can save time by avoiding check for whether item has reached its position and simply promoting the larger of the two children until the bottom is reached, then moving back up to the correct position
+  - cuts the number of compares by a factor of 2 asymptotically
+  - mostly useful when cost of compares is high
+
+* Code
+- TopM.java -- a PQ client
+- MaxPQ.java -- max-value heap PQ
+- Multiway.java -- IndexMinPQ client, merges sorted input streams
+- Heapsort.java -- Heapsort stub
