@@ -94,3 +94,7 @@ https://github.com/Coira/_exercises
 - MaxPQ.java -- max-value heap PQ
 - Multiway.java -- IndexMinPQ client, merges sorted input streams
 - Heapsort.java -- Heapsort stub
+- IndexMinPQ.java(*) -- Index Priority Queue
+- ExplicitPQ.java(*) -- triply linked list PQ
+- PriorityQueue_*.java(*) -- various implementations of PQs
+
