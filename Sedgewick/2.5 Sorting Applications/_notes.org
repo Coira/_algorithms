@@ -1,0 +1,92 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Applications 
+
+NOTE: All code marked with (*) is located in the _exercises repository
+https://github.com/Coira/_exercises
+
+* Sorting various types of data
+
++ Pointer sorting
+  - In Java, pointer manipulation is implicit, we always manipulate references to objects.
+  - Adds a level of indirection.
+
++ Keys are immutable
+  - Use immutable keys/data types to ensure key values do not change.
+
++ Exchanges are inexpensive
+  - With references, we avoid the cost of moving full items.
+  - In some cases, exchanges may be cheaper than compares if the keys are long.
+
++ Alternate orderings
+  - Using an interface, we can pass a comparator depending on how we want the data to be sorted
+
++ Items with multiple keys
+  - We can use the Comparator mechanism to define multiple comparators.
+
++ Stability
+  - Do we need to preserve the relative order of equal keys?
+  - No practical method in common use achieves stability without using significan extra time or space.
+  - Methods exist, but deemed to complicated to be useful.
+
+* Which sorting algorithm should I use?
+
+In most practical situations, quicksort is the method of choice, but it pays to run performance tests. 
+
++ Sorting primitive types
+  - If, for example, we are just sorting ~int~, we can avoid the cost of references.
+  - Note the difference between sorting, e.g. ~int~ and sorting ~Integer~
+  - More efficient to sort primitives than ~Comparable~
+
+* Reductions
+
+Using an algorithm developed to solve one problem to solve another.
+
++ Duplicates
+  - Are there any duplicate keys in this array?
+  - How many distinct keys are there?
+  - Which value appears most frequently?
+  - With sorting we can answer these questions in linearithmic time.
+
++ Rankings
+  - A permutation (or ranking) is an array of N integers where each of the integers between 0 and N-1 appear exactly once.
+  - The Kendall tau distance between two rankings is the number of pairs that are in different order in the two rankings.
+  - Used, e.g. in sociology and biology.
+  - A quadratic algorithm based on insertion sort to compute this distance is not difficult to devise.
+
++ Median and order statistics
+  - Doesn't need a full sort.
+  - Is a special case of finding the /kth/ smallest of a collection of numbers.
+  - Used, e.g. in statistics.
+  - Easy when /k/ is very small or very large, more challenging when /k/ is a constant fraction of the array size.
+  - Possible to solve in linear time (see Select.java).
+
+* Applications
+
++ Commercial computing
+  - Huge databases of information that need to be searched.
+  - Add data to a database, sort it, merge results.
+
++ Search of information
+  - Keeping data in sorted order makes it possible to efficiently search through it using binary search.
+
++ Operations research
+  - Develop and apply mathematical models for problem-solving and decision making.
+  - E.g. the scheduling problem, the load-balancing problem.
+ 
++ Event-driven simulation
+  - Model some aspect of the real world in order to better understand it.
+
++ Numerical computations.
+  - E.g. we can use priority queues and sorting to control accuracy in calculations.
+
++ Combinatorial search
+  - AI and intractable problems.
+  - E.g. the A* algorithm.
+
++ Algorithms that depend on efficent implementations of sorting
+  - Prim's algorithm and Dijkstra's algorithm.
+  - Kruskal's algorithm.
+  - Huffman compression.
+  - String-processing algorithms.
