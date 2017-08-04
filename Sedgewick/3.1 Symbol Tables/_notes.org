@@ -1,0 +1,68 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Symbol Tables 
+
+NOTE: All code marked with (*) is located in the _exercises repository
+https://github.com/Coira/_exercises
+
+* Symbol Tables
+- key-value pairs
+- search for the value associated with a given key
+
+* Implementation Considerations
++ Generics
++ Duplicate keys
+  - each key has only one value
+  - if the key exists, replace its value with the new one
++ Null keys
+  - keys must not be null
++ Null values
+  - no key can be associated with the value ~null~
+  - ~get()~ returns ~null~ for keys not in the table
+  - we can use ~put()~ to give a key the value ~null~, thus marking it for deletion
++ Deletion
+  - /lazy/ deletion: associate keys to be deleted with the value ~null~, and delete at a later time
++ Iteration
+  - use Java's ~Iterable~ interface
++ Key equality
+  - override ~equals()~
+
+* Ordered Symbol Tables
+As keys are ~Comparable~ objects, we can use this to keep the table in order, and thus expand the API (see code).
+
++ Minimum and maximum
+  - The symbol table can operate like ~IndexMinPQ()~
+  - Unlike ~IndexMinPQ~, doesn't allow equal keys
+  - Ordered symbol tables support a larger API
+
++ Floor and ceiling
+  - floor: find the largest key that is <= to the given key
+  - ceiling: find the smallest key that is >= to the given key
+
++ Rank and selection
+  - rank: find the number of keys less than a given key
+  - select: find the key with a given rank
+  - ~i = rank(select(i))~
+  - ~key == select(rank(key))~
+
++ Range queries
+  - How many keys fall within a given range?
+  - Which keys fall in a given range?
+ 
++ Exeptional cases
+  - throw an exception or return null
+
++ Cost model
+  - Look at compares in the inner loop
+  - In a few cases might also need to count array accesses
+
+* Clients
++ Test client
+  - TestClient.java
+  - an example of an indexing client (see Section 3.5)
+
++ Performance client
+  - FrequencyCounter.java
+  - finds the number of occurrences of each string
+  - which word (no shorter than a given length) occurs most frequently?
