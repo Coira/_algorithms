@@ -9,6 +9,7 @@ https://github.com/Coira/_exercises
 * Symbol Tables
 - key-value pairs
 - search for the value associated with a given key
+- can we devise a symbol table that has logN time for both search and insert?
 
 * Implementation Considerations
 + Generics
@@ -66,3 +67,32 @@ As keys are ~Comparable~ objects, we can use this to keep the table in order, an
   - FrequencyCounter.java
   - finds the number of occurrences of each string
   - which word (no shorter than a given length) occurs most frequently?
+
+Can we develop a symbol-table implementation that can handle a huge number of ~get()~ operations, which itself was built with a large number of intermixed ~get()~ and ~put()~ operations?
+
+* Sequential search in an unordered linked list
+- ~get()~ : scan through the list and compare keys
+- ~put()~ : scan and compare; update value or create new node
+- both insert and search need to compare until a search hit/miss
+- inserting N distinct keys takes O(N^2/2) compares
+- search takes an average of N/2
+- too slow for FrequencyCounter
+- SequentialSearchST.java
+
+* Binary search in an ordered array
+- keeps Comparable keys in order and uses array indexing to enable fast implementation of ~get()~ and other operations
+- maintains parallel arrays of keys and values
+- TODO ex3.1.12 for an alternative to parallel arrays
+- uses array resizing, too slow for large arrays
+- despite binary search being fast, cannot use this symbol table for large amounts of data as ~put()~ is slow
+- insert uses ~2N array accesses
+- BinarySearchST.java
+
+* Code
+- TestClient.java
+- FrequencyCounter.java
+- SequentialSearchST.java -- also see exercises for full code
+- BinarySearchST.java
+- AltBinarySearchST.java (*) TODO
+
+
