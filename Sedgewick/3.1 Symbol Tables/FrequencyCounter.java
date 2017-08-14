@@ -21,8 +21,9 @@ public class FrequencyCounter {
         for (String word : st.keys()) {
             if (st.get(word) > st.get(max))
                 max = word;
-            StdOut.println(max + " " + st.get(max));
-        }
+		}
+        StdOut.println(max + " " + st.get(max));
+        
     }
 }
 

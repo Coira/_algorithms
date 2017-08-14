@@ -24,9 +24,9 @@ public class SequentialSearchST<Key, Value> {
     public Value get(Key key) {
         for (Node x = first; x != null; x = x.next) {
             if (key.equals(x.key))
-                return x.value; // search hit
-            return null;        // search miss
-        }
+                return x.val; // search hit
+		}
+        return null;      // search miss
     }
 
     public void put(Key key, Value val) {
@@ -35,8 +35,8 @@ public class SequentialSearchST<Key, Value> {
                 x.val = val;   // search hit
                 return;
             }
-            first = new Node(key, val, first); // search miss
-        }
+		}
+        first = new Node(key, val, first); // search miss
     }
 }
 
