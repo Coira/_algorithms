@@ -82,7 +82,7 @@ Can we develop a symbol-table implementation that can handle a huge number of ~g
 * Binary search in an ordered array
 - keeps Comparable keys in order and uses array indexing to enable fast implementation of ~get()~ and other operations
 - maintains parallel arrays of keys and values
-- TODO ex3.1.12 for an alternative to parallel arrays
+- See ex3.1.12 for an alternative to parallel arrays
 - uses array resizing, too slow for large arrays
 - despite binary search being fast, cannot use this symbol table for large amounts of data as ~put()~ is slow
 - insert uses ~2N array accesses
@@ -92,7 +92,6 @@ Can we develop a symbol-table implementation that can handle a huge number of ~g
 - TestClient.java
 - FrequencyCounter.java
 - SequentialSearchST.java -- also see exercises for full code
-- BinarySearchST.java
-- AltBinarySearchST.java (*) TODO
-
+- BinarySearchST.java -- also see exercises for full code
+- BinarySearchST_WithItem.java(*) -- alternative to using parallel arrays
 

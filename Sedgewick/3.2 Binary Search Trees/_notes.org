@@ -1,0 +1,90 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Binary Search Trees
+
+NOTE: All code marked with (*) is located in the _exercises repository
+https://github.com/Coira/_exercises
+
+* Binary Search Trees
+- each node has a ~Comparable~ key and value.
+- each node's key is larger than all nodes in its left subtree.
+- each node's key is smaller than all nodes in its right subtree.
+
+* Implementation
+- node class
+  - key, value, left link, right link, node count.
+- node count N gives the number of nodes starting at that node and including all its subtrees.
+
+- search
+  - search hit or search miss.
+  - shrinks tree by half on each iteration.
+
+- insert
+  - similar to search.
+  - if we search for a key and it returns null, we can insert.
+
+- recursion
+  - code before recursive call happens on the way down.
+  - code after recursive call happens on the way up.
+
+* Analysis
+- best case, with N nodes and perfectly balanced, there are ~lgN nodes between the root and each null link.
+- worst case, N nodes between root and null link.
+- typically, closer to best case than worse.
+
+* Order-based Methods and Deletion
+
+- Minimum and maximum
+  - if left link of root is null, smallest key is the root.
+  - otherwise its the smallest key in the left subtree.
+  - max key is the right-most key in the right subtree.
+
+- Floor and ceiling
+  - if a given key, k, is less than the key at the root, then floor(k) must be in the left subtree
+  - if k is greater than the key at the root, then its floor /could/ be in the right subtree, but only if there is a key smaller than or equal to k in the right subtree.
+  - otherwise (or if k is equal to root), then the root = floor(k).
+  - ceil() is similar, but with left and right exchanged.
+
+- Selection
+  - similar to selection from chapter 2.5.
+  - uses node count N to support this operation.
+
+- Rank
+  - if the given key, k, is equal to the key at the root, return the number of keys in the left subtree.
+  - if k is less than the root, return the rank of the key in the left subtree.
+  - if larger, return the number of keys in the left subtree + 1, plus the rank of the key in the right subtree.
+
+- Delete the minimum/maximum
+  - ~deleteMin()~ go left until we find a node that has a null left link and replace that node with its right link.
+  - ~deleteMax()~ similar and symmetric.
+  - node count will need to be updated.
+
+- Delete
+  - deleting a node that has no or one child is similar to the above method.
+  - if it has 2 child nodes, we use a method proposed by T. Hibbard.
+    - replace the node with its successor
+    - i.e the smallest key in its right subtree
+  - the 4 steps of deleting a node, /x/, when x has 2 children:
+    - point ~t~ to ~x~
+    - set ~x~ to its successor ~min(t.right)~
+    - set ~x.right~ to ~deleteMin(t.right)~
+    - set ~x.left~ to ~t.left~
+  - the recursive call will then sort out parent links and node counts.
+  - in practice, worthwhile to choose at random between using predecessort and successort (ex. 3.2.42).
+
+- Range queries
+  - uses inorder traversal.
+  - add each key to a Queue.
+  - skip calls when subtree cannot contain keys in range.
+
+- Analysis
+  - best case when tree perfectly balanced.
+  - good when tree created with random order.
+  - unlike quicksort, we cannot guard against items being entered e.g. in reverse order, by shuffling the items, as the client controls when items are inserted, deleted, etc.
+
+* Code
+BST.java - basic implement of a binary search tree as outlined above
+Queue.java - supports BST
+
+ex 3.2.42 using pre instead of suc (TODO)
