@@ -63,13 +63,13 @@ public class BST<Key extends Comparable<Key>, Value> {
         return min(x.left);
     }
 
-    private Key max() {
+    public Key max() {
         return max(root).key;
     }
 
     private Node max(Node x) {
         if (x.right == null) return x;
-        return max(x.left);
+        return max(x.right);
     }
 
     public Key floor(Key key) {
@@ -90,6 +90,32 @@ public class BST<Key extends Comparable<Key>, Value> {
         else           return x;
     }
 
+    public Key select(int k) {
+        return select(root, k).key;
+    }
+
+    private Node select(Node x, int k) {
+        // Return Node containing key of rank k.
+        if (x == null) return null;
+        int t = size(x.left);
+        if (t > k) return select(x.left, k);
+        else if (t < k) return select(x.right, k-t-1);
+        else return x;
+    }
+
+    public int rank(Key key) {
+        return rank(key, root);
+    }
+
+    private int rank(Key key, Node x) {
+        // Return number of keys less than key in the subtree rooted at x.
+        if (x == null) return 0;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return rank(key, x.left);
+        else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right);
+        else return size(x.left);
+    }
+    
     public Key ceiling(Key key) {
         Node x = ceiling(root, key);
         if (x == null) return null;
@@ -103,7 +129,7 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (cmp == 0) return x;
         if (cmp > 0) return ceiling(x.right, key);
 
-        Node t = floor(x.left, key);
+        Node t = ceiling(x.left, key);
         if (t != null) return t;
         else return x;
     }
@@ -119,6 +145,17 @@ public class BST<Key extends Comparable<Key>, Value> {
         return x;
     }
 
+    public void deleteMax() {
+        root = deleteMax(root);
+    }
+
+    private Node deleteMax(Node x) {
+        if (x.right == null) return x.left;
+        x.right = deleteMax(x.right);
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
+    }
+    
     // eager Hibbard deletion
     public void delete(Key key) {
         root = delete(root, key);
