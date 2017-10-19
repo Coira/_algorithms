@@ -1,0 +1,153 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Balanced Search Trees
+
+NOTE: All code marked with (*) is located in the _exercises repository
+https://github.com/Coira/_exercises
+
+* 2-3 Search Trees
+
+A 2-3 search tree is recursively:
+  + A 2-node, left and right children < and >
+  + A 3-node
+    + left link to sub 2-3 tree with keys that are <
+    + right link to sub 2-3 tree with keys that are >
+    + middle link to sub 2-3 with keys between the two keys above
+      
+A perfectly balanced 2-3 search tree is one in whose null links are all the same distance from the root. A 2-3 tree is a perfectly balanced 2-3 search tree.
+
+* Operations
+
+Search and insert visit at most lgN nodes.
+
+** Search
+Follow the links as usual.
+
+** Insert into a 2-node
+Replace the 2-node with a 3-node.
+
+** Insert into a tree consisting of a single 3-node
++ Convert 3-node into a 4-node using the key.
++ Split the 4-node into three 2-nodes.
+
+** Insert into a 3-node whose parent is a 2-node
++ Convert the 3-node into a 4-node.
++ Move the middle key to the node's parent.
++ This converts the 4-node back to a 3-node and the 2-node into a 3-node.
++ The tree remains ordered and perfectly balanced.
+
+** Insert into a 3-node whose parent is a 3-node
++ Convert the 3-node into a 4-node.
++ Split as above, however this will make the parent into a 4-node.
++ Continue up until we reach the root.
++ Split the root if it ends up a 4-node.
+  
+** Splitting the root
++ Split the 4-node into three 2-nodes.
++ This increases the tree height by 1.
+
+* Red-Black BSTs
+
++ We add extra information to a standard 2-node to turn it into a 3-node.
++ A link can either be red or black.
++ A 3-node is two 2-nodes connected by a red link.
++ A red link leans left (one of the 2-nodes is the left child of the other).
++ A black link binds together the 2-3 tree.
++ No node has two red links connected to it.
++ The tree has perfect black balance.
++ There is a 1-1 correspondence between red-black BSTs defined in this way and 2-3 trees.
+
+** Operations
+
+*** Rotations
++ rotateLeft takes a link to a red-black tree whose right link is red, rotates it so the left link is instead red, and returns a link to the tree.
++ rotateRight performs the same, with left and right interchanged.
+
+*** Insert into a single 2-node
++ If the new key is smaller than the key in the tree, we make a new red node with the new key.
++ If it is larger, then attaching a new red node gives a right-leaning red link, and we will need to rotate.
+
+*** Insert into a 2-node at the bottom
++ As above.
++ If the new node is attached to the left link the parent simply becomes a 3-node.
++ If it is attached to the right link, we will need a left rotation.
+
+*** Insert into a tree with two keys (in a 3-node)
+
++ New key is larger than the two keys in the tree, and is therefore attached on the rightmost link of the 3-node.
+  + Flip the colours of the two links from red to black.
+  + End up with a black balanced tree of height 1 with three nodes.
+  + The other cases reduce to this case.
+
++ New key is smaller than the two keys in the tree and goes on the left link.
+  + Two red links in a row, both leaning left
+  + Reduce to the first case by rotating the top link to the right
+
++ New key goes between the two keys in the tree.
+  + Again, two red links in a row, a right-leaning one below a left-leaning one
+  + Rotate left the bottom link to reduce to the first case.
+
+*** Flipping colours
+ + As well as flipping the colours of the children, need to flip the colour of the parent.
+ + Root needs to be kept black.
+
+*** Insert into a 3-node at the bottom
++ The same three cases above arise.
++ If connected to the right link, flip the colours.
++ If connected to the left link, rotate top link right and flip.
++ If connected to the middle link, rotate bottom link left, rotate right link right, flip clours.
++ Pass the red link back up the tree until we reach the root or a 2-node.
+
+*** Summary
++ If the right child is red and the left is black, rotate left.
++ If both the left child and its left child are red, rotate right.
++ If both children are red, flip colours.
+
+** Deletion
+
+We do transformations on the way down, where we introduce temporary 4-nodes, and on the way up, where we split any leftover 4-nodes.
+
+*** Top-down 2-3-4 trees
+
+Consider an insertion algorithm for 2-3-4 trees, where temporary 4-nodes can persist in the tree.
+
++ On the way down, maintain the invariant that the current node is not a 4-node.
+  + Exactly the same transformations we used for spliting 4-nodes into 2-3 trees.
+  + Ensures there is room left at the bottom to insert a new key.
++ On the way up, balance any 4-nodes that have been created.
+
+To implement with red-black BSTs, we
++ Represent 4-nodes as a balanced subtree of three 2-nodes, with both the left and right child connected to the parent with a red link.
++ Split 4-nodes on the way down with colour flips.
++ Balance 4-nodes on the way up with rotations, as for insertion.
+
+*** Delete the minimum
+
+Consider deleting the minimum from a 2-3 tree. We can easily delete a key from a 3-node at the bottom of a tree, but not from a 2-node. So we perform transformations on the way down to preserve the invariant that the current node is not a 2-node.
+
+At the root, there are two possibilities:
++ Root and both children 2-nodes, convert all three to a 4-node
++ Otherwise borrow from the right sibling if necessary to ensure the left child of the root is not a 2-node.
+
+Then, on the way down, one of the following must hold:
++ If the left child of the current node is not a 2-node, there is nothing to do.
++ if the left child is a 2-node and its immediate sibling is not a 2-ndoe, move a key from the sibling to the left child.
++ If the left child and its immediate sibling are 2-nodes, then combine them with the smallest key in the parent to make a 4-node, changing the parent from a 3-node to a 2-node, or from a 4-node to a 3-node.
+
+On the way back up the tree, we split any unused temporary 4-nodes.
+
+*** Delete
+
+On the way down the path, as above, to ensure the current node is not a 2-node.
+If the search key is at the bottom, we can just remove it.
+If it isn't, we have to exchange it with its successor as in regular BSTs. Then, since the current node is not a 2-node, we have reduced the problem to deleting the minimum in a subtree whose root is not a 2-node, and we can use the procedure just described for that subtree.
+After the deletion, split 4-nodes on the search path back up the tree.
+
+** Properties of red-black BSTs
++ Always, nearly perfectly balanced regardless of insertion order.
++ Height is no more than 2lgN.
++ Practically, experiments show compares number between 1.0lgN-0.5 compares on average.
++ Performs symbol-table operations in lgN time in the worst case.
++ So, what's the drawback?
+
