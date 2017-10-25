@@ -20,14 +20,14 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         }
     }
 
-    private boolean isRed(Node h) {
+    private boolean isRed(Node x) {
         if (x == null) return false;
         return x.colour == RED;
     }
 
     private Node rotateLeft(Node h) {
         Node x = h.right;
-        h.rihgt = x.left;
+        h.right = x.left;
         x.left = h;
         x.colour = h.colour;
         h.colour = RED;
@@ -83,6 +83,14 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         return h;
     }
 
+    public static void main(String[] args) {
+        String[] s = "AKSRIEN".split("");
+        RedBlackBST<String, Integer> bst = new RedBlackBST<String, Integer>();
+        for (int i = 0; i < s.length; i++) {
+            bst.put(s[i], i);
+        }
+    }
+        
     // See exercises for delete and delete min
 }
         
