@@ -69,7 +69,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         if (h == null) // Do standard insert, with red link to parent
             return new Node(key, val, 1, RED);
 
-
         int cmp = key.compareTo(h.key);
         if (cmp < 0) h.left = put(h.left, key, val);
         else if (cmp > 0) h.right = put(h.right, key, val);
@@ -83,12 +82,27 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         return h;
     }
 
+    private int height() {
+        System.out.println(root.key);
+        Node curr = root;
+        int h = 0;
+        while (curr != null) {
+            if (curr.colour == BLACK) {
+                System.out.print(curr.key + " ");
+                h++;
+            }
+            curr = curr.right;
+        }
+        return h;
+    }
+    
     public static void main(String[] args) {
-        String[] s = "AKSRIEN".split("");
+        String[] s = "AXERCSHM".split("");
         RedBlackBST<String, Integer> bst = new RedBlackBST<String, Integer>();
         for (int i = 0; i < s.length; i++) {
             bst.put(s[i], i);
         }
+        System.out.println(bst.height());
     }
         
     // See exercises for delete and delete min

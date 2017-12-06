@@ -106,6 +106,8 @@ Replace the 2-node with a 3-node.
 
 ** Deletion
 
+As a warm-up, consider this implementation for 2-3-4 trees.
+
 We do transformations on the way down, where we introduce temporary 4-nodes, and on the way up, where we split any leftover 4-nodes.
 
 *** Top-down 2-3-4 trees
@@ -151,3 +153,6 @@ After the deletion, split 4-nodes on the search path back up the tree.
 + Performs symbol-table operations in lgN time in the worst case.
 + So, what's the drawback?
 
+* Code
+RedBlackBST.java
+RedBlackBSTFull.java(*) - RedBlack with deletion code

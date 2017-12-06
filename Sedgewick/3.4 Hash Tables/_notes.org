@@ -1,0 +1,110 @@
+#+STARTUP: content
+#+STARTUP: indent
+
+#+TITLE: Hash Tables
+
+NOTE: All code marked with (*) is located in the _exercises repository
+https://github.com/Coira/_exercises
+
+* Hash Tables
+
+Uses an array, stores item with key that hashes to i in array entry i.
+
+Two parts:
+  - A hash function that transforms the search key into an array index.
+  - Collision resolution, which deals when two items hash to the same value.
+
+Time-space trade off.
+
+* Hash Functions
+
+- Lets assume we have an array that holds M key-value pairs.
+- Need a hash function that transforms key into an index between 0 and M-1.
+- Should be easy to compute and uniformly distribute keys.
+- Represent key as a sequence of bits and use a hash function that maps that to integers in the desired range.
+
+When the key is a *positive integer*:
+  - Modular hashing: (k % M), where M is prime and k is a positive int.
+  - If M is not prime, we may not be giving equal weight to all bits in the key.
+
+When the key is a *floating-point number*:
+  - Don't convert number to an int by multiplying by M and rounding.
+    - Gives more weight to most significant bits
+  - Use modular hashing on the binary representation of the key.
+
+When the key is a *string*:
+  - Again we can use modular hashing, treat the string as huge integers.
+  - Horner's method.
+
+When the key is *compound*:
+  - Mix together the various methods above.
+
+** Considerations
+
++ A good hash function for each type of key is required.
++ The performance guarantee depends on the quality of the hash funcitoin.
++ Hash functions can be difficult and expensive to compute.
++ Ordered symbol-table operations are not easily supported.
+
+** Software caching
+
+If computing the hash is expensive, we can cache the hash for each key. Compute and store the full hash for the key the first time we see it, then subsequently return the stored hash.
+
+** Requirements
+
+A good hash function should:
+  + Be consistent - equal keys must produce the same hash value.
+  + Be efficient to compute.
+  + Uniformly distribute the set of keys.
+
+* Collision Resolution
+
+** Hashing with separate chaining
+
++ Each array element contains a linked list of the key-value pairs whose keys hash to that index.
++ M should be large enough that the lists are sufficiently short to enable efficient search through the array and the list.
++ We can use ~SequentialSearchST~ from 3.1.
++ For N keys, average list length is N/M, no matter how the keys are distributed among the lists.
++ In practice, extremely likely that each list has N/M key-value pairs.
++ The number of compares (equality tests) for search miss and insert is ~N/M.
++ Easy to implement, and probably the fastest and most widely used symbol-table implementation when key order is not required.
++ Not suitable when we need to find min/max keys, find keys in a given range, or implement other operations in an ordered symbol-table.
+
+*** Table size
+
+We want the table to be small enough that we do not waste a huge area of contiguous memory, but large enough that we do not waste time searching through long chains. However, this decision is not critical, if more keys arrive than expectd then searches will take a little longer than if we had chosen a bigger table size ahead of time. If fewer keys arrive than expected, then we have an extra-fast search with some wasted space.
+
+If space is not a critical resource, M can be chose sufficiently large that search time is constant. If it is, we can still get a factor of M improvement in performance by choosing M to be as large as we can afford.
+
+** Hashing with linear probing
+
++ Store N key-value pairs in a hash table of size M > N, relying on empty entries to help with collision resolution.
++ One method is called linear probing.
+  + If the space is occupied, check next entry until we find a free spot.
++ When we search, either we find the key or find an empty space, signifying a search miss.
+
+*** Deletion
+
+We cannot simply set a key to ~null~, as we use ~null~ to denote a search miss. Instead we need to reinsert all keys in the cluster to the right of the key-to-be-deleted. (Exercise 3.4.17)
+
+** Load Factor
+
+Let the ratio a = N/M be the load factor of a hash table:
+  + For separate chaining, a is the average number of keys per list.
+    + Ofter greater than 1.
+  + For linear probing, a is the percentage of table entries that are occupied.
+    + Cannot be greater than 1.
+    + If a is 1, then we have a full table and no way of delineating between clusters
+    + Use array resizing to guarantee that the load factor is between 1/8 and 1/2.
+    + When a is about 1/2, the average number of probes for a search hit is 3/2 and for a search miss about 5/2.
+
+
+
+* Code
++ SeparateChainingHashST.java - hash table with separate chaining
+  + SequentialSearchST.java   - needed for above
++ TODO 3.4.19 Iterable for above
++ TODO 3.4.18 Array resizing for above
++ LinearProbingHashST.java - hash table with linear probing
++ TODO 3.4.19 implement keys() for above
++ TODO 3.4.17 implement delete for above
