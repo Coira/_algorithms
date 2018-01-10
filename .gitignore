@@ -1,8 +1,8 @@
 *.bak
 *~
 *.exe
-Test.java
 scratch.c
 *.class
 Sedgewick/libs
 Sedgewick/testfiles
+Test.*
