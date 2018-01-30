@@ -104,8 +104,4 @@ Let the ratio a = N/M be the load factor of a hash table:
 + SeparateChainingHashST.java - hash table with separate chaining
   + SequentialSearchST.java   - needed for above
   + Queue.java
-+ TODO 3.4.19 Iterable for above
-+ TODO 3.4.18 Array resizing for above
 + LinearProbingHashST.java - hash table with linear probing
-+ TODO 3.4.19 implement keys() for above
-+ TODO 3.4.17 implement delete for above
