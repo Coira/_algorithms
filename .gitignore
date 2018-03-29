@@ -6,3 +6,6 @@ scratch.c
 Sedgewick/libs
 Sedgewick/testfiles
 Test.*
+phaser*
+mongoose*.exe
+*.lnk

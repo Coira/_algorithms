@@ -1,0 +1,41 @@
+#+STARTUP:outline
+#+STARTUP:indent
+
+#+TITLE: Notes from Mazes for Programmers - J. Buick
+
+* Definitions
+
+Perfect Maze::A maze where every cell can reach every other cell by exactly one path. There are no loops or paths that intersect.
+
+Braid Maze::Few (if any) dead ends, and passages forming loops. Going from one point to another can be accomplished in multiple ways.
+
+Unicursal maze:Non-branching mazes.
+
+Multicursal maze:Mazes with branching paths.
+
+Texture::A maze's style.
+
+Bias::An algorithm's tendency to produce mazes of certain textures.
+
+* The Binary Tree Algorithm
+
+1.) Visit each cell in turn (can choose a random order, but going row by row is easier).
+2.) For each cell flip a coin, delete either a north wall or east wall.
+3.) Don't delete outer walls, and if there is no wall to delete, move on.
+4.) Delete walls for entrance and exit as needed.
+
++ Produces mazes with unbroken passages north and east.
++ Fast, efficient, simple.
++ Rotate the maze?
+
+* The Sidewinder Algorithm
+
+Groups adjecent cells together before carving a passage.
+
+1.) Arbitrarily start in the southwest corner.
+2.) Flip a coin, if it's (e.g.) tails, delete the east wall and move east.
+3.) If it's heads, randomly delete a north wall in the current cluster of cells you are in. "Closing out the run".
+4.) Once we've closed the run, jump into the next cell.
+5.) If the east wall is a boundary and we flip heads, don't delete, just close the run and move on.
+
+
